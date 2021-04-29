@@ -1,0 +1,275 @@
+module Api
+    class CartItemsController < ApplicationControllerr
+        def create
+            user_cart=current_user.cart
+            add_item_to_cart = user_cart.cart_items.create(
+                product_id:params[:product_id],
+                quantity: rand(1...10))
+            render json: add_item_to_cart
+        end
+
+        def show
+            cart_item = CartItem.find_by(id: params[:id])
+            data = cart_item.attributes.symbolize_keys
+            data.delete(:cart_id)
+
+            render json: data
+        end
+
+        def destroy
+            @cart_item = CartItem.find_by(id: params[:id])
+            @cart_item.destroy
+        end
+
+    # def create
+    #         current_user.cart.cart_items.add_item(
+    #             product_id: params[:product_id],
+    #             quantity: params[:quantity],
+    #         )
+    #         render json: current_user.cart.cart_items
+    # end
+
+    # def create
+    #     cart_item=cart_items.new(cart_params)
+    #     current_user.cart.cart_items.create(product_id: product_id)
+    #     if current_user.cart.cart_items.save
+    #         render json: current_user.cart
+    #     else
+    #         render error: {error:"Unable to add"},status: 400
+    #     end
+    # end
+
+    # def create(char_params)
+    #     product = Product.find(product_id)
+        
+    #     cart_item = Cart.items.find_or_initialize_by(product_id: product_id)
+        
+    #     cart_item.quantity = char_params[:product].quantity
+        
+    #     cart_item.save
+    # end
+
+    
+
+
+
+    # private
+
+    # def cart_params
+    #     params.permit(:product_id,:quantity)
+    # end
+
+
+    # def create
+    #     @cart_items=cart_items.new(product: product)
+    #     if @cart_items.save
+       #         render json: @cart_items    #     elseadd_add_it        def add_item(product_id:, quantity: 1)          def create            current_user.cart.add_item(                product_id: params[:product_id],                quantity: params[:quantity]roduct            cart_params)      def             product = Product.find(product_id)                    order_item = order.items.find_or_initialize_by(              product_id: product_id            )                    order_item.price = product.price            order_item.quantity = quantity                    order_item.save          endem    #         render error: {error:"Not found"}, status: 400    #     end    # end    #current_user.cart.cart_items.create(product: product)    endend
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+
