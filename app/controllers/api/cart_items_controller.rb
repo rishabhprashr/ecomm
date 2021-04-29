@@ -38,5 +38,43 @@ module Api
             @cart_item.destroy
         end
 
+        # def create
+    #         current_user.cart.cart_items.add_item(
+    #             product_id: params[:product_id],
+    #             quantity: params[:quantity],
+    #         )
+    #         render json: current_user.cart.cart_items
+    # end
+
+    # def create
+    #     cart_item=cart_items.new(cart_params)
+    #     current_user.cart.cart_items.create(product_id: product_id)
+    #     if current_user.cart.cart_items.save
+    #         render json: current_user.cart
+    #     else
+    #         render error: {error:"Unable to add"},status: 400
+    #     end
+    # end
+
+    # def create(char_params)
+    #     product = Product.find(product_id)
+        
+    #     cart_item = Cart.items.find_or_initialize_by(product_id: product_id)
+        
+    #     cart_item.quantity = char_params[:product].quantity
+        
+    #     cart_item.save
+    # end
+
+    
+
+
+
+    # private
+
+    # def cart_params
+    #     params.permit(:product_id,:quantity)
+    # end
+
     end
 end
