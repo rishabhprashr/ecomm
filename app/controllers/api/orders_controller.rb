@@ -19,10 +19,11 @@ module Api
     def create
       items = current_user.cart.cart_items
       order_creation = Order.create(user_id:current_user.id,payment_status:"yes",invoice_number: rand(1000...100000))
-      adding_item_to_order_list = items.each do |item|
+      order_items = items.each do |item|
         order_creation.order_items.create(product_id: item.product_id,
           quantity: item.quantity)
       end
+      render json: order_items
     end
 
 

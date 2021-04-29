@@ -22,13 +22,13 @@ module Api
             # cart_items=@cart.cart_items.find.where(id: params[:id]).first
             # cart_id=current_user.cart.id
             # cart_item = CartItem.where({cart_id:cart_id})
-            cart_item = CartItem.find_by(id:params[:id])
-            data=cart_item.attributes.symbolize_keys
-            data.delete(:cart_id)
+            # cart_item = CartItem.find_by(id:params[:id])
+            # data=cart_item.attributes.symbolize_keys
+            # data.delete(:cart_id)
 
 
-            # render json: cart_item
-            render json: data and return
+            # # render json: cart_item
+            # render json: data and return
         end
 
         def destroy
