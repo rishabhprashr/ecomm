@@ -7,7 +7,7 @@ module Api
     end
 
     def show
-      current_user_orders = Order.all.where(user_id: current_user.id)
+      current_user_orders = Order.where(user_id: current_user.id)
       order = curent_user_orders.where(id:params[:id]).first
       if order
         render json: order.order_items
@@ -18,9 +18,9 @@ module Api
 
     def create
       items = current_user.cart.cart_items
-      order_creation = Order.create(user_id:current_user.id,payment_status:"yes",invoice_number: rand(1000...100000))
+      order = Order.create(user_id:current_user.id,invoice_number: rand(1000...100000))
       order_items = items.each do |item|
-        order_creation.order_items.create(product_id: item.product_id,
+        order.order_items.create(product_id: item.product_id,
           quantity: item.quantity)
       end
       render json: order_items

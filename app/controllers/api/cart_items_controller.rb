@@ -2,14 +2,14 @@ module Api
     class CartItemsController < ApplicationController
 
         def create
-            user_cart=current_user.cart
+            current_cart=current_user.cart
             add_quantity=params[:quantity].to_i
-            product = user_cart.cart_items.where(product_id: params[:product_id])
+            product = current_cart.cart_items.where(product_id: params[:product_id])
             if product.exists?
                 product.first.update( quantity: params[:quantity])
                 render json: {status: "The quantity of this particular product is being increased"} and return
             else
-                add_item_to_cart = user_cart.cart_items.create(
+                add_item_to_cart = current_cart.cart_items.create(
                     product_id:params[:product_id],
                     quantity: params[:quantity]
                 )
@@ -25,6 +25,12 @@ module Api
             # cart_item = CartItem.find_by(id:params[:id])
             # data=cart_item.attributes.symbolize_keys
             # data.delete(:cart_id)
+            product = current_user.cart.cart_items.where(id:params[:id])
+            if product.exists?
+                render json: product.first
+            else
+                render json: {status: "No product with this cart_id in the cart_items!!"}
+            end
 
 
             # # render json: cart_item
