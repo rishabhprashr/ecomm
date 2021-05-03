@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     end
 
     resource :profile, only: [:show]
-    resource :cart, only: [:show]
-    resources :cart_items, except: [:index]
+    
+    resources :cart_items, only: [:create, :index, :update, :destroy]
     resources :orders, only: [:index,:create, :show]
   end
 end

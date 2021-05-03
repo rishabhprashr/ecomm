@@ -1,30 +1,36 @@
 module Api
   class OrdersController < ApplicationController
-
     def index
-      orders = current_user.orders.where(user_id:current_user.id)
-      render json: orders
+      orders = current_user.orders.includes(:order_items)
+      data = []
+
+      orders.each do |order|
+        data << order.format
+      end
+
+      render json: data
     end
 
     def show
-      current_user_orders = Order.where(user_id: current_user.id)
-      order = curent_user_orders.where(id:params[:id]).first
-      if order
-        render json: order.order_items
-      else
-        render json: {status: "No order found with given id"}
-      end
+      order = current_user.orders.find params[:id]
+      render json: order.format
     end
-
+    
     def create
-      items = current_user.cart.cart_items
-      order = Order.create(user_id:current_user.id,invoice_number: rand(1000...100000))
-      order_items = items.each do |item|
-        order.order_items.create(product_id: item.product_id,
-          quantity: item.quantity)
+      order = current_user.create_order!
+
+      if order.errors.blank?
+        render json: {
+                 success: true,
+                 order: order.format
+               }, status: :ok
+      else
+        render json: {
+                 success: false,
+                 errors: order.errors
+               }, status: :bad_request
       end
-      render json: order_items
+      
     end
-
-
   end
+end
