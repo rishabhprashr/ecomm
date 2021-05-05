@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
     resource :profile, only: [:show]
     resources :categories, only: [:show]
+    resources :product_search, only: [:show]
+    get 'products/search' => 'products#search'
     resources :users , only: [:create]
     resources :cart_items, only: [:create, :index, :update, :destroy]
     resources :orders, only: [:index,:create, :show]

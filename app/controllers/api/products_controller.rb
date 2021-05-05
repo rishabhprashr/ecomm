@@ -1,7 +1,7 @@
 module Api
   class ProductsController < ApplicationController
     skip_before_action :authenticate!, only: [:index]
-    before_action :fetch_category
+    before_action :fetch_category, only: [:show, :index]
     
     def index
       products = @category.products
@@ -9,6 +9,10 @@ module Api
     end
 
     def show
+      
+        
+    
+      @category = Category.find params[:category_id]
       product = @category.products
                   .where(id: params[:id]).first
 
@@ -22,15 +26,17 @@ module Api
       render json: data and return
     end
 
-    def show
-      product = Products.where(name: params[:name])
-      if product.nil? || product.blank?
-        render json:{success: false, message:"Not found."}, status: :bad_request
+    def search
+      products = Product.where(name: params[:name]).first
+      if products.nil? || products.blank?
+        render json:{success: false, message:"Not found product."}, status: :bad_request
       else
-        render json: {success: true, product: product}, status: :ok
+        render json: {success: true, products: products}, status: :ok
       end
       
+      
     end
+    
 
     private
 
