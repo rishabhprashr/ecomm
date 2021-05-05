@@ -1,6 +1,6 @@
 module Api
   class SessionsController < ApplicationController
-    # skip_before_action :authenticate!
+    skip_before_action :authenticate!
     
     def create
       user = User.where(
@@ -10,13 +10,12 @@ module Api
       return unauthorized! if user.blank?
 
       if user.valid_password?(params[:password])
-        token = user.generate_token!
+        token = encode_token({id: user.id})
         render json: {user: {
                         id: user.id,
                         email: user.email,
                         name: user.name,
-                        token: token,
-                        created_at: user.token_created_at
+                        token: token
                       }}
       else
         unauthorized!

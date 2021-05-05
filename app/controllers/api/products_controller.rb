@@ -22,6 +22,16 @@ module Api
       render json: data and return
     end
 
+    def show
+      product = Products.where(name: params[:name])
+      if product.nil? || product.blank?
+        render json:{success: false, message:"Not found."}, status: :bad_request
+      else
+        render json: {success: true, product: product}, status: :ok
+      end
+      
+    end
+
     private
 
     

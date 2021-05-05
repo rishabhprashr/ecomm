@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
 
     resource :profile, only: [:show]
+    resources :categories, only: [:show]
     resources :users , only: [:create]
     resources :cart_items, only: [:create, :index, :update, :destroy]
     resources :orders, only: [:index,:create, :show]
