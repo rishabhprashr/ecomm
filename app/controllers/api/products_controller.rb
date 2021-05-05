@@ -4,8 +4,8 @@ module Api
     before_action :fetch_category, only: [:show, :index]
     
     def index
-      products = @category.products
-      render json: products
+      products = @category.products.limit(20).offset(params[:offset])
+      render json:{success: true,products: products},status: :ok 
     end
 
     def show
