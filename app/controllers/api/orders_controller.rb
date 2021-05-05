@@ -21,14 +21,14 @@ module Api
 
       if order.errors.blank?
         render json: {
-                 success: true,
-                 order: order.format
-               }, status: :ok
+          success: true,
+          order: order.format
+        }, status: :ok
       else
         render json: {
-                 success: false,
-                 errors: order.errors
-               }, status: :bad_request
+          success: false,
+          errors: order.errors
+          }, status: :bad_request
       end
       
     end

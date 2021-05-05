@@ -8,7 +8,7 @@ class CartItem < ApplicationRecord
   
   def validate_quantity
     if self.quantity < MIN_QUANTITY
-      self.errors.add(:quantity, "should be more than ZERO")
+      self.errors.add(:quantity, "should be atleast #{MIN_QUANTITY}")
     end
   end
 
@@ -17,7 +17,7 @@ class CartItem < ApplicationRecord
       id: id,
       created_at: created_at,
       quantity: quantity,
-      # price: product.price * quantity,
+      price: quantity * product.price,
       product: {
         id: product.id,
         name: product.name,

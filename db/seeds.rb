@@ -46,7 +46,9 @@ users = [
 data = []
 
 users.each do |user_data|
-  data << user_data.merge!(password: 'mindfire', created_at: Time.now, updated_at: Time.now)
+  token = SecureRandom.urlsafe_base64(100)
+  data << user_data.merge!(password: 'mindfire', password_confirmation: 'mindfire', created_at: Time.now, updated_at: Time.now,
+  token: token, token_created_at: Time.now)
 end
 
 data.each do |datum|

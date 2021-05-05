@@ -1,20 +1,32 @@
 module Api
   class SessionsController < ApplicationController
+    # skip_before_action :authenticate!
+    
     def create
       user = User.where(
-        email: params[:email],
-        password: params[:password]
+        email: params[:email]
       ).first
 
-      if user.present?
+      return unauthorized! if user.blank?
+
+      if user.valid_password?(params[:password])
+        token = user.generate_token!
         render json: {user: {
                         id: user.id,
                         email: user.email,
-                        name: user.name
+                        name: user.name,
+                        token: token,
+                        created_at: user.token_created_at
                       }}
       else
-        render json: {status: 401, error: true, message: 'Unauthorized'}
+        unauthorized!
       end
+    end
+
+    private
+
+    def unauthorized!
+      render json: {success: false, error: 'Invalid Authentication'}, status: :unauthorized and return
     end
   end
 end

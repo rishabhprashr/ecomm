@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   before_create :assign_invoice
 
   def assign_invoice
-    self.invoice_number = random_string
+    self.invoice_no = random_string
   end
 
   def random_string
@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   def format
     result = {
       id: id,
-      invoice_number: invoice_number,
+      invoice_number: invoice_no,
       created_at: created_at
     }
 
