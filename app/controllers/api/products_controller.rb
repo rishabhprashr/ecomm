@@ -4,8 +4,21 @@ module Api
     before_action :fetch_category, only: [:show, :index]
     
     def index
-      products = @category.products.limit(params[:limit]).offset(params[:offset])
-      render json:{success: true,products: products},status: :ok 
+      # products = @category.products.limit(params[:limit]).offset(params[:offset])
+      # products = @category.products.paginate(page: params[:page], per_page: 20)
+      # render json:{success: true,products: products},status: :ok 
+      data = @category.products
+      
+      if params[:search]
+        data = data.where("name like :search", search: "%#{params[:search]}%")
+      end
+
+      pagy, products = pagy data
+      
+      result = pagy.vars.slice(:page, :items, :count)
+      result[:data] = products
+      
+      render json: result
     end
 
     def show
@@ -27,22 +40,20 @@ module Api
     end
 
     def search
-      
-      products = Product.where(name: params[:name]).first
-      if products.nil? || products.blank?
-        category = Category.where(name: params[:name]).first
-        if !(category.nil? || category.blank?)
-          product = Product.where(category_id: category.id)
-
-          render json:  { success: true, products: product}, status: :ok and return
-        end
+      search = params[:name]
+      category = Category.where(name: params[:name]).first
+      if !(category.nil? || category.blank?)
+        products = Product.where(category_id: category.id)
       else
-        render json: {success: true, products: products}, status: :ok and return
+        products = Product.where("name like :search", search: "%#{search}%")
       end
 
-      render json: {success: false, error: "Not found"}, status: :not_found and return
+      pagy, products = pagy products
       
-      
+      result = pagy.vars.slice(:page, :items, :count)
+      result[:data] = products
+      render json: {success: true, products: result}, status: :ok and return
+
     end
     
 

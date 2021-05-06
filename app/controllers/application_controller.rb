@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
+  include Pagy::Backend
 
   JWT_SECRET_KEY = Rails.application.secrets.secret_key_base
   JWT_ALGORITH = 'HS512'

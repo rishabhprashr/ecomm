@@ -6,7 +6,7 @@ module Api
       # token = SecureRandom.urlsafe_base64(100)
       user = User.new(name: params[:name],
         email: params[:email],
-        password: params[:password]
+        password: params[:password])
         # token: token, 
         # token_created_at: Time.now)
       if user.save

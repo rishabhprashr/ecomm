@@ -34,6 +34,8 @@ gem 'devise'
 #using jwt for secure token authentication
 gem 'jwt'
 
+gem 'pagy'
+
 gem 'rack-cors'
 
 group :development, :test do
