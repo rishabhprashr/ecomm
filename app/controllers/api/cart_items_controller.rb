@@ -22,28 +22,28 @@ module Api
       
       if cart_item.save
         render json: {
-                 success: true,
-                 cart_item: cart_item.format
-               }, status: :ok
+          success: true,
+          cart_item: cart_item.format
+        }, status: :ok
       else
         render json: {
-                 success: false,
-                 errors: cart_item.errors
-               }, status: :bad_request
+          success: false,
+          errors: cart_item.errors
+        }, status: :bad_request
       end
     end
 
     def update
       if @cart_item.update(quantity: params[:quantity])
         render json: {
-                 success: true,
-                 cart_item: @cart_item.format
-               }, status: :ok
+          success: true,
+          cart_item: @cart_item.format
+        }, status: :ok
       else
         render json: {
-                 success: false,
-                 errors: @cart_item.errors
-               }, status: :bad_request
+          success: false,
+          errors: @cart_item.errors
+        }, status: :bad_request
       end
     end
 
@@ -51,9 +51,9 @@ module Api
       @cart_item.destroy
 
       render json: {
-               success: true,
-               cart_item: @cart_item.format
-             }
+        success: true,
+        cart_item: @cart_item.format
+      }
     end
 
     def get_cart_item

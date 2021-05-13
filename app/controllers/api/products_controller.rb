@@ -28,15 +28,18 @@ module Api
       @category = Category.find params[:category_id]
       product = @category.products
                   .where(id: params[:id]).first
-
-      data = product.attributes.symbolize_keys
-      data.delete(:category_id)
-      data.merge!(category: {
-                    id: @category.id,
-                    name: @category.name
-                  })
       
-      render json: data and return
+      if !(product.nil? || product.blank?)
+        data = product.attributes.symbolize_keys
+        data.delete(:category_id)
+        data.merge!(category: {
+                      id: @category.id,
+                      name: @category.name
+                    })
+        render json:{success: true, data: data},status: :ok and return
+      else
+        render json:{success: false,error: "Item not found"},status: :not_found and return
+      end
     end
 
     def search
