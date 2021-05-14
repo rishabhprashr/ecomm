@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   def format
     result = {
       id: id,
-      invoice_number: invoice_no,
+      invoice_no: invoice_no,
       created_at: created_at
     }
 
@@ -25,6 +25,6 @@ class Order < ApplicationRecord
     end
 
     result[:items] = data
-    result
+    return result
   end
 end
