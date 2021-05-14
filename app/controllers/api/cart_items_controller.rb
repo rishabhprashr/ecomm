@@ -6,12 +6,12 @@ module Api
       cart_items = current_user.cart_items.includes(:product)
 
       data = []
-
+      totalPrice = 0
       cart_items.each do |cart_item|
         data << cart_item.format
+        totalPrice += cart_item.quantity * cart_item.product.price
       end
-      
-      render json: data
+      render json: {data:data,totalPrice:totalPrice}
     end
     
     def create

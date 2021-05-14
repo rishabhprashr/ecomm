@@ -18,13 +18,15 @@ class Order < ApplicationRecord
       invoice_no: invoice_no,
       created_at: created_at
     }
-
-    data = []
+    totalPrice=0
+    data=[]
     self.order_items.each do |order_item|
       data << order_item.format
+      totalPrice+=order_item.quantity*order_item.product_price
     end
 
     result[:items] = data
+    result[:totalPrice] = totalPrice
     return result
   end
 end
