@@ -11,7 +11,7 @@ module Api
         data << cart_item.format
         totalPrice += cart_item.quantity * cart_item.product.price
       end
-      render json: {data:data,totalPrice:totalPrice}
+      render json: {success: true,data:data,totalPrice:totalPrice}
     end
     
     def create
@@ -35,10 +35,7 @@ module Api
 
     def update
       if @cart_item.update(quantity: params[:quantity])
-        render json: {
-          success: true,
-          cart_item: @cart_item.format
-        }, status: :ok
+        index
       else
         render json: {
           success: false,
@@ -50,10 +47,12 @@ module Api
     def destroy
       @cart_item.destroy
 
-      render json: {
-        success: true,
-        cart_item: @cart_item.format
-      }
+      data= index
+
+      # render json: {
+      #   success: true,
+      #   cart_item: @cart_item.format
+      # }
     end
 
     def get_cart_item

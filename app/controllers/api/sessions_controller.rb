@@ -11,12 +11,13 @@ module Api
 
       if user.valid_password?(params[:password])
         token = encode_token({id: user.id})
-        render json: {user: {
+        render json: {success:true,
+                      user: {
                         id: user.id,
                         email: user.email,
                         name: user.name,
                         token: token
-                      }}
+                      }, status: :confirmation_token}
       else
         unauthorized!
       end
